@@ -5,7 +5,7 @@ __author__ = "Joseph Sarsfield"
 __email__ = "joe.sarsfield@gmail.com"
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 
 
 def index(request):

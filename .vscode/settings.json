@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/home/joe/miniconda3/envs/tc-cybersmart/bin/2to3"
+    "python.pythonPath": "/home/joe/miniconda3/envs/tc-cybersmart/bin/python",
+    "python.linting.pylintEnabled": true
 }

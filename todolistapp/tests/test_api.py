@@ -7,6 +7,7 @@ __email__ = "joe.sarsfield@gmail.com"
 
 from django.test import TestCase
 
+
 class WeatherAPITestCase(TestCase):
     """Test cases for weather API go here."""
 
@@ -14,7 +15,5 @@ class WeatherAPITestCase(TestCase):
         pass
 
     def test_api_get_temperature(self):
-        """Can get temperature?"""
+        """Test API can get temperature"""
         pass
-
-        

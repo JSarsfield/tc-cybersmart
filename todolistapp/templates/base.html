@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cybersmart todolist</title>
+    {% load static %}
+</head>
+
+<body>
+    <div django-app="TodoList">
+        <a href="/">Home</a>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div><!-- container -->
+    </div>
+</body>
+
+</html>

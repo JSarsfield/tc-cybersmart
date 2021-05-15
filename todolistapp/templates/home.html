@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Cyberspace todolist homepage</h1>
+<a href="/todolist/create/">Create todolist</a>
+
+<ul>
+    {% for todolist in todolists %}
+    <!-- django template lang - for loop -->
+    <li>
+        {{todolist.title}} <a href="/todolist/update/{{todolist.pk}}">Update</a> <a
+            href="/todolist/delete/{{todolist.pk}}">Delete</a>
+    </li>
+    {% endfor %}
+</ul><!-- taskList -->
+
+{% endblock %}

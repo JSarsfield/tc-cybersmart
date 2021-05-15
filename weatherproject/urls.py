@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from todolistapp.views_index import index
+from todolistapp.views import index, todolist_create, todolist_update, todolist_delete
 
 urlpatterns = [
+    path('', index, name="home"),
+
+    path('todolist/create/', todolist_create, name="todolist_create"),
+    path('todolist/update/<str:pk>/', todolist_update, name="todolist_update"),
+    path('todolist/delete/<str:pk>/', todolist_delete, name="todolist_delete"),
+
+
     path('admin/', admin.site.urls),
-    path('', index, name="TodoList"),
 ]

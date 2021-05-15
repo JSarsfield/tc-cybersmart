@@ -7,6 +7,18 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'weatherproject.settings')
+
+    # Start Debugger custom section
+    from django.conf import settings
+
+    if settings.DEBUG:
+        if os.environ.get('RUN_MAIN'):
+            import ptvsd
+
+            ptvsd.enable_attach(address=('0.0.0.0', 5678))
+            print('Debugger attached.')
+    # End Debugger custom section
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

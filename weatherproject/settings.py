@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ka5*4e2sp@#&+#(qgux6te1t6&_&%7*koz4&#e$&j78*+^%(a@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'weatherproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cybersmart_db',
+        'USER': 'cybersmart_dbuser',
+        'PASSWORD': 'arobustpassword',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

@@ -5,6 +5,7 @@ __author__ = "Joseph Sarsfield"
 __email__ = "joe.sarsfield@gmail.com"
 """
 
+from todolistapp.api import get_temperature
 from django.db import models
 from django.utils import timezone
 
@@ -23,23 +24,26 @@ class Task(models.Model):
     This model has a many-to-one relationship with TodoList model."""
 
     class TempBackgroundColour(models.TextChoices):
-        COLD = 'CD', '#0000FF', 
+        COLD = 'CD', '#0000FF',
         WARM = 'WM', '#FFA500'
         HOT = 'HT', '#FF0000'
         DEFAULT = 'DT', '#FFFFFF'
 
     title = models.CharField(max_length=128)  # Title of Task
+    location = models.CharField(max_length=128, default="london")  # Location
+    temperature = models.FloatField(
+        null=True, blank=True)  # Temperature in celsius
     bg_colour = models.CharField(
         max_length=2,
         choices=TempBackgroundColour.choices,
         default=TempBackgroundColour.DEFAULT
-    ) # Task background color
+    )  # Task background color
     todolist = models.ForeignKey(
         'TodoList',
         on_delete=models.CASCADE,
         related_name='tasks'
     )  # Many-to-one relationship with TodoList model.
-    task_done = models.BooleanField(default=False) # Toggle task complete
+    task_done = models.BooleanField(default=False)  # Toggle task complete
     created = models.DateField(default=timezone.now)
 
     class Meta:
@@ -47,4 +51,3 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-

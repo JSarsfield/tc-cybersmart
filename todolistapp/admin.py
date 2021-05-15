@@ -9,7 +9,7 @@ class TodoListAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "task_done",  "created")
+    list_display = ("title", "task_done", "location", "temperature", "created")
 
 
 admin.site.register(models.TodoList, TodoListAdmin)

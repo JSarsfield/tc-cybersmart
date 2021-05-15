@@ -9,6 +9,9 @@ class TodoListForm(ModelForm):
 
 
 class TaskForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Task
-        fields = ["title", "task_done"]
+        fields = ["title", "location", "task_done"]

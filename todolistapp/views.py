@@ -8,6 +8,7 @@ __email__ = "joe.sarsfield@gmail.com"
 from django.shortcuts import redirect, render, HttpResponseRedirect
 from todolistapp.models import TodoList, Task
 from todolistapp.forms import TodoListForm, TaskForm
+from .api import get_temperature, get_geolocation_from_ip
 
 
 def index(request):
@@ -48,6 +49,7 @@ def todolist_delete(request, pk):
 
 def task_create(request, pk):
     """Create task"""
+    location = get_geolocation_from_ip(request)
     todolist = TodoList.objects.get(pk=pk)
     if request.method == "POST":
         form = TaskForm(request.POST)
@@ -68,12 +70,15 @@ def task_update(request, todo_pk, pk):
     task = Task.objects.get(pk=pk)
     if request.method == "POST":
         form = TaskForm(request.POST, instance=task)
+        form.instance.temperature = get_temperature(form.instance.location)
         if form.is_valid():
             form.save()
             return redirect("/todolist/update/"+todo_pk)
     else:
         form = TaskForm(initial={'title': task.title,
-                        'task_done': task.task_done})
+                                 'location': task.location,
+                                 'temperature': task.temperature,
+                                 'task_done': task.task_done})
     return render(request,
                   "task_update.html",
                   {"form": form, "task": task},

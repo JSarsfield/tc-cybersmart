@@ -5,8 +5,8 @@
 <a href="/task/create/{{todolist.pk}}"><button>Add Task</button></a>
 <ul>
     {% for task in tasks %}
-    <li>{{task.title}} <a href="/task/update/{{todolist.pk}}/{{task.pk}}"><button>Edit Task</a></button> <a
-            href="/task/delete/{{todolist.pk}}/{{task.pk}}"><button>Delete Task</a></button>
+    <li>{{task.title}} <a href="/task/update/{{todolist.pk}}/{{task.pk}}"><button>Edit Task</button></a><a
+            href="/task/delete/{{todolist.pk}}/{{task.pk}}"><button>Delete Task</button></a>
     </li>
     {% endfor %}
 </ul>

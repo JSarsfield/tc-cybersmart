@@ -49,7 +49,6 @@ def todolist_delete(request, pk):
 
 def task_create(request, pk):
     """Create task"""
-    location = get_geolocation_from_ip(request)
     todolist = TodoList.objects.get(pk=pk)
     if request.method == "POST":
         form = TaskForm(request.POST)
@@ -70,7 +69,6 @@ def task_update(request, todo_pk, pk):
     task = Task.objects.get(pk=pk)
     if request.method == "POST":
         form = TaskForm(request.POST, instance=task)
-        form.instance.temperature = get_temperature(form.instance.location)
         if form.is_valid():
             form.save()
             return redirect("/todolist/update/"+todo_pk)

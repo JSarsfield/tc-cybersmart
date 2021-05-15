@@ -5,8 +5,12 @@
 <a href="/task/create/{{todolist.pk}}"><button>Add Task</button></a>
 <ul>
     {% for task in tasks %}
-    <li>{{task.title}} <a href="/task/update/{{todolist.pk}}/{{task.pk}}"><button>Edit Task</button></a><a
-            href="/task/delete/{{todolist.pk}}/{{task.pk}}"><button>Delete Task</button></a>
+    <li style="background-color: {{task.get_bg_colour_display}}">Title: {{task.title}} Loc:
+        {{task.get_location_display}} Temp:
+        {{task.temperature}} Done:
+        {{task.task_done}}
+        <a href="/task/update/{{todolist.pk}}/{{task.pk}}"><button>Edit
+                Task</button></a><a href="/task/delete/{{todolist.pk}}/{{task.pk}}"><button>Delete Task</button></a>
     </li>
     {% endfor %}
 </ul>

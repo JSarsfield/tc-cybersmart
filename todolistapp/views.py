@@ -7,7 +7,7 @@ __email__ = "joe.sarsfield@gmail.com"
 
 from django.shortcuts import redirect, render, HttpResponseRedirect
 from todolistapp.models import TodoList, Task
-from todolistapp.forms import TodoListForm
+from todolistapp.forms import TodoListForm, TaskForm
 
 
 def index(request):
@@ -33,17 +33,10 @@ def todolist_create(request):
 
 def todolist_update(request, pk):
     """Update todolists view and add tasks"""
-    if request.method == "POST":
-        todolist = TodoList.objects.get(pk=pk)
-        form = TodoListForm(request.POST, instance=todolist)
-        if form.is_valid():
-            form.save()
-            return redirect(".")
-    else:
-        form = TodoListForm()
+    todolist = TodoList.objects.get(pk=pk)
     return render(request,
                   "todolist_update.html",
-                  {"form": form}
+                  {"todolist": todolist, "tasks": todolist.tasks.all()},
                   )
 
 
@@ -51,3 +44,43 @@ def todolist_delete(request, pk):
     """Delete todolist view"""
     TodoList.objects.filter(pk=pk).delete()
     return redirect("/")
+
+
+def task_create(request, pk):
+    """Create task"""
+    todolist = TodoList.objects.get(pk=pk)
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        form.instance.todolist = todolist
+        if form.is_valid():
+            form.save()
+            return redirect("/todolist/update/"+pk)
+    else:
+        form = TaskForm()
+    return render(request,
+                  "task_create.html",
+                  {"form": form}
+                  )
+
+
+def task_update(request, todo_pk, pk):
+    """Update todolists view and add tasks"""
+    task = Task.objects.get(pk=pk)
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect("/todolist/update/"+todo_pk)
+    else:
+        form = TaskForm(initial={'title': task.title,
+                        'task_done': task.task_done})
+    return render(request,
+                  "task_update.html",
+                  {"form": form, "task": task},
+                  )
+
+
+def task_delete(request, todo_pk, pk):
+    """Delete todolist view"""
+    Task.objects.filter(pk=pk).delete()
+    return redirect("/todolist/update/"+todo_pk)
